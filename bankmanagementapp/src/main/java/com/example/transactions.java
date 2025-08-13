@@ -10,9 +10,11 @@ public class transactions extends JFrame implements ActionListener{
 
     JButton deposit, withdrawl, fastCash, miniStatement, pinChange, balanceEnquiry, exit;
     String pinNumber;
-    transactions(String pinNumber){
+    String cardNumber;
+    transactions(String cardNumber, String pinNumber){
         setLayout(null);
         this.pinNumber = pinNumber;
+        this.cardNumber = cardNumber;
 
         ImageIcon i1 = new ImageIcon(getClass().getResource("/com/example/icons/atm.jpg"));
         Image i2 = i1.getImage().getScaledInstance(900, 900, Image.SCALE_DEFAULT);
@@ -73,8 +75,28 @@ public class transactions extends JFrame implements ActionListener{
         if(ae.getSource()  == exit){
             System.exit(0);
         }
+        else if (ae.getSource() == deposit){
+            setVisible(false);
+
+            new deposit(cardNumber, pinNumber).setVisible(true);
+        }
+        else if(ae.getSource() == withdrawl){
+            setVisible(false);
+
+            new withdrawl(cardNumber, pinNumber).setVisible(true);
+        }
+        else if(ae.getSource() == fastCash){
+            setVisible(false);
+
+            new fastCash(cardNumber, pinNumber).setVisible(true);
+        }
+        else if(ae.getSource() == pinChange){
+            setVisible(false);
+
+            new pinChange(cardNumber, pinNumber).setVisible(true);
+        }
     }
     public static void main(String[] args) {
-        new transactions("");
+        new transactions("", "");
     }
 }

@@ -211,6 +211,8 @@ public class signUpThree extends JFrame implements ActionListener{
 
                     JOptionPane.showMessageDialog(null, "Card Number : " + cardNumber + "\nPin Number : " + pinNumber);
 
+                    setVisible(false);
+                    new deposit(cardNumber, pinNumber).setVisible(true);
 
                 }
             }
@@ -219,7 +221,8 @@ public class signUpThree extends JFrame implements ActionListener{
             }
         }
         else if(ae.getSource() == cancel){
-            
+            setVisible(false);
+            new Login().setVisible(true);
         }
     }
 }
