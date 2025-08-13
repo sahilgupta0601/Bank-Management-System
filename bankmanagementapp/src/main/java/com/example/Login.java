@@ -3,6 +3,8 @@ package com.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
+import java.awt.event.ActionListener;
 
 public class Login extends JFrame implements ActionListener{
     JButton loginButton, clearButton, signUpButton;
@@ -51,7 +53,7 @@ public class Login extends JFrame implements ActionListener{
         loginButton.setBounds(360, 300, 100, 30);
         loginButton.setBackground(Color.BLACK);
         loginButton.setForeground(Color.WHITE);
-        loginButton.addActionListener((java.awt.event.ActionListener) this);
+        loginButton.addActionListener(this);
         add(loginButton);
 
         clearButton = new JButton("CLEAR");
@@ -79,16 +81,35 @@ public class Login extends JFrame implements ActionListener{
         new Login();
 
     }
-    public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == clearButton){
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+
+        if(ae.getSource() == clearButton){
             cardText.setText("");
             pinText.setText("");
         }
-        else if (e.getSource() == loginButton) {
-            
+        else if (ae.getSource() == loginButton) {
+            Conn conn = new Conn();
+            String cardNumber = cardText.getText();
+            String pinNumber = pinText.getText();
+            String query = "select * from login where cardNumber = '" +cardNumber+ "' and pinNumber = '" +pinNumber+ "'";
+
+            try{
+                ResultSet rs = conn.s.executeQuery(query);
+                if(rs.next()){
+                    setVisible(false);
+                    new transactions(pinNumber).setVisible(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Incorrect Card number or Pin");
+                }
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
         }
-        else if(e.getSource() == signUpButton){
+        else if(ae.getSource() == signUpButton){
             setVisible(false);
             new signUpOne().setVisible(true); 
         }
