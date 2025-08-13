@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 public class pinChange extends JFrame implements ActionListener {
 
@@ -85,7 +84,9 @@ public class pinChange extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == change){
             try{
+                @SuppressWarnings("deprecation")
                 String npin = pin.getText();
+                @SuppressWarnings("deprecation")
                 String rpin = repin.getText();
 
                 if(!npin.equals(rpin)){
